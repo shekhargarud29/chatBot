@@ -1,0 +1,15 @@
+.chatbot-width {
+  width: 350px;
+}
+
+.chatbot-height {
+  height: 550px;
+}
+.logo:hover {
+  background-color: #4caf50;
+  /* transform: scale(1.1); */
+}
+
+/* .chatbot-middle{
+  height: 300px;
+} */
