@@ -1,0 +1,23 @@
+body {
+  font-family: "Sour Gummy", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-variation-settings: "wdth" 100;
+}
+
+.chatbot-width {
+  width: 350px;
+}
+
+.chatbot-height {
+  height: 550px;
+}
+
+/* .chatbot-middle{
+  height: 300px;
+} */
+
+/* #cross:hover {
+  transform: translate(90deg);
+} */

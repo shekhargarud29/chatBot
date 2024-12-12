@@ -1,0 +1,104 @@
+for updations ={
+    // to push single element
+     const updateResult = await collection.updateOne(
+       { _id: 1 },
+       { $push: { main_options: { b: 1 } } }
+  );
+
+  // // to update particular elememt or add more value inside it
+   const updateResult = await collection.updateOne(
+     { _id: 1, "main_options.b": 1 },
+     {
+       $set: {
+         "main_options.$.b": 2,
+       },
+     }
+   );
+
+  // to push multiple value inside document
+   const updateResult = await collection.updateOne(
+     { _id: 1 },
+     {
+       $push: {
+         main_options: {
+           $each: [{ d: 3 }, { e: 4 }],
+         },
+       },
+     }
+   );
+
+  // to set multiple value inside document
+   const updateResult = await collection.updateOne(
+     { _id: 1 },
+     {
+       $set: {
+         d: 3,
+         e: 4,
+       },
+     }
+   ); 
+
+   // to remove particular element
+   const updateResult = await collection.updateOne(
+     { _id: 1 },
+     { $unset: { d: "" } }
+   );
+  console.log("Updated documents =>", updateResult);
+}
+
+for deletion ={
+    // to delete a document
+  const deleteResult = await collection.deleteOne({ _id: 1 });
+
+  // to delete paticular object in document
+  const updateResult = await collection.updateOne(
+    { _id: 1 },
+    { $unset: { d: "" } }
+  );
+
+  // to delete all documents in collection
+  const deleteResult = await collection.deleteMany({});
+
+  // to delete collection
+  const deleteResult = await collection.drop();
+
+  // to delete database
+  const deleteResult = await db.dropDatabase();
+}
+
+for reading={
+  // to read all data from the collection
+  const findResult = await collection.find({}).toArray();
+
+  // to read particular element from collection\
+  const findResult = await collection.findOne({
+    _id: 1,
+    "data.main_options.option": "Admissions Process",
+  });
+
+  // to retrieve match element from collection
+  const findResult = await collection.findOne(
+    {
+      _id: 1,
+      "data.main_options.option": "Admissions Process",
+    },
+    {
+      projection: {
+        _id: 0,
+        main_options2: {
+          $elemMatch: {
+            option: "Admissions Process",
+          },
+        },
+      },
+    }
+  );
+}
+
+for creating={
+     // to insert single document with id
+  const insertResult = await collection.insertOne({ _id: 1, data });
+
+  // to add multiple document
+  const insertResult = await collection.insertMany([{ doc: 2 }, { doc: 3 }]);
+}

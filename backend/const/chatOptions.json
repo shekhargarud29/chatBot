@@ -1,0 +1,85 @@
+{  
+    "id": 1,
+    "main_options": [
+      {
+        "option": "Admissions Process",
+        "sub_options": [
+          {
+            "option": "Eligibility Criteria",
+            "document_link":
+              "https://yourserver.com/docs/MCA_Eligibility_Criteria.pdf"
+          },
+          {
+            "option": "Application Process",
+            "document_link":
+              "https://yourserver.com/docs/MCA_Application_Process.pdf"
+          },
+          {
+            "option": "Important Dates",
+            "document_link":
+              "https://yourserver.com/docs/MCA_Important_Dates.pdf"
+          }
+        ]
+      },
+      {
+        "option": "Program Details",
+        "sub_options": [
+          {
+            "option": "Course Duration",
+            "document_link":
+              "https://yourserver.com/docs/MCA_Course_Duration.pdf"
+          },
+          {
+            "option": "Intake Capacity",
+            "document_link":
+              "https://yourserver.com/docs/MCA_Intake_Capacity.pdf"
+          },
+          {
+            "option": "Syllabus",
+            "document_link": "https://yourserver.com/docs/MCA_Syllabus.pdf"
+          }
+        ]
+      },
+      {
+        "option": "Fees and Scholarships",
+        "sub_options": [
+          {
+            "option": "Course Fees",
+            "document_link": "https://yourserver.com/docs/MCA_Course_Fees.pdf"
+          },
+          {
+            "option": "Scholarships",
+            "document_link": "https://yourserver.com/docs/MCA_Scholarships.pdf"
+          }
+        ]
+      },
+      {
+        "option": "Placements and Opportunities",
+        "sub_options": [
+          {
+            "option": "Placement Assistance",
+            "document_link":
+              "https://yourserver.com/docs/MCA_Placement_Assistance.pdf"
+          },
+          {
+            "option": "Internships",
+            "document_link": "https://yourserver.com/docs/MCA_Internships.pdf"
+          }
+        ]
+      },
+      {
+        "option": "Contact Information",
+        "sub_options": [
+          {
+            "option": "Admissions Office Contact",
+            "document_link":
+              "https://yourserver.com/docs/VJTI_Admissions_Contact.pdf"
+          },
+          {
+            "option": "Department Office",
+            "document_link":
+              "https://yourserver.com/docs/MCA_Department_Contact.pdf"
+          }
+        ]
+      }
+    ]}
