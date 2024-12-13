@@ -20,7 +20,7 @@ async function main(req, res) {
         // Check if the department already exists
         const existingDepartment = await collection.findOne({
           _id: documentId,
-          "departments.name": department_name,
+          "departments.department_name": department_name,
         });
         console.log(existingDepartment);
         if (existingDepartment) {
@@ -28,7 +28,10 @@ async function main(req, res) {
           console.log(
             `Department "${department_name}" already exists, skipping insertion.`
           );
-          return { acknowledged: false, message: "Department already exists." };
+          return {
+            acknowledged: false,
+            message: `Department ${department_name} already exists.`,
+          };
         } else {
           const newDepartment = {
             department_name: department_name,
@@ -45,12 +48,12 @@ async function main(req, res) {
     );
     if (insertResult.every((result) => result.acknowledged)) {
       res.status(200).json({
-        message: "Department inserted successfully",
+        message: "Document inserted successfully",
         insertResult,
       });
     } else {
       res.status(200).json({
-        message: "Department could not be inserted completely",
+        message: "Document could not be inserted completely",
         insertResult,
       });
     }

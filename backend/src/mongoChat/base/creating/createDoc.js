@@ -1,5 +1,5 @@
 async function main(req, res) {
-  const data = req.body;
+  const { documentId, departments } = req.body;
 
   const { mongoConnect } = require("../../mongoConnect");
   let client;
@@ -8,9 +8,11 @@ async function main(req, res) {
     if (!client) {
       throw new Error("Failed to establish a database connection.");
     }
-
     const db = client.db(process.env.MONGO_DB);
     const collection = db.collection(process.env.MONGO_COLLECTION);
+    if (!documentId) {
+      throw new Error("Please enter a document ID.");
+    }
 
     // to insert single document with id
     const insertResult = await collection.insertOne({

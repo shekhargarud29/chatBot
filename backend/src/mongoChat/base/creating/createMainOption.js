@@ -24,14 +24,17 @@ async function main(req, res) {
         // Check if the option already exists in the specified department
         const existingOption = await collection.findOne({
           _id: documentId,
-          "departments.name": department_name,
+          "departments.department_name": department_name,
           "departments.main_options.option": option,
         });
 
         if (existingOption) {
           // If the option exists, skip insertion
           console.log(`Option "${option}" already exists, skipping insertion.`);
-          return { acknowledged: false, message: "Option already exists." };
+          return {
+            acknowledged: false,
+            message: `Option ${option} already exists.`,
+          };
         } else {
           // Prepare the new main option object
           const newMainOption = {
@@ -42,7 +45,7 @@ async function main(req, res) {
 
           // Insert the new main option into the department
           const result = await collection.updateOne(
-            { _id: documentId, "departments.name": department_name },
+            { _id: documentId, "departments.department_name": department_name },
             { $push: { "departments.$.main_options": newMainOption } }
           );
           return result;
