@@ -34,10 +34,30 @@ module.exports = function (app) {
     x = require(__dirname + "./../src/mongoChat/deleteChat");
     x.main(req, res);
   });
-  app.get("/src/mongoChat/readChat/", function (req, res) {
-    x = require(__dirname + "./../src/mongoChat/readChat");
+
+  // reading apis
+  app.get("/src/mongoChat/base/reading/readDb/", function (req, res) {
+    x = require(__dirname + "./../src/mongoChat/base/reading/readDb");
     x.main(req, res);
   });
+  app.get("/src/mongoChat/base/reading/readDoc/", function (req, res) {
+    x = require(__dirname + "./../src/mongoChat/base/reading/readDoc");
+    x.main(req, res);
+  });
+  app.get("/src/mongoChat/base/reading/readDepartment/", function (req, res) {
+    x = require(__dirname + "./../src/mongoChat/base/reading/readDepartment");
+    x.main(req, res);
+  });
+  app.get("/src/mongoChat/base/reading/readMainOption/", function (req, res) {
+    x = require(__dirname + "./../src/mongoChat/base/reading/readMainOption");
+    x.main(req, res);
+  });
+  app.get("/src/mongoChat/base/reading/readSubOPtion/", function (req, res) {
+    x = require(__dirname + "./../src/mongoChat/base/reading/readSubOPtion");
+    x.main(req, res);
+  });
+
+  // updating apis
   app.post("/src/mongoChat/updateChat/", function (req, res) {
     x = require(__dirname + "./../src/mongoChat/updateChat");
     x.main(req, res);

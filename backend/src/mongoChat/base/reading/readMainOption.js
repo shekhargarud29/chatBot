@@ -1,6 +1,5 @@
 async function main(req, res) {
-  const { documentId, departments } = req.body;
-
+  const { documentId, department_name } = req.body;
   const { mongoConnect } = require("../../mongoConnect");
   let client;
   try {
@@ -10,19 +9,22 @@ async function main(req, res) {
     }
     const db = client.db(process.env.MONGO_DB);
     const collection = db.collection(process.env.MONGO_COLLECTION);
-    if (!documentId) {
-      throw new Error("Please enter a document ID.");
+    if (!documentId && !department_name) {
+      throw new Error("Please enter a document ID or department name.");
     }
 
-    // to insert single document with id
-    const insertResult = await collection.insertOne({
-      _id: 1,
-      departments: departments,
-    });
+    // to find single document with id
+
+    const findResult = await collection.findOne(
+      { _id: documentId, "departments.department_name": department_name },
+      {
+        projection: { "departments.$": 1 },
+      }
+    );
 
     res.status(200).json({
-      message: "Document inserted successfully",
-      insertResult,
+      message: "Main_Option readed successfully",
+      findResult,
     });
   } catch (error) {
     console.log("Error in main function:", error.message);

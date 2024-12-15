@@ -1,6 +1,6 @@
 async function main(req, res) {
-  const { documentId, departments } = req.body;
-
+  //   const { documentId } = req.body;
+  const documentId = req.body.documentId || 1;
   const { mongoConnect } = require("../../mongoConnect");
   let client;
   try {
@@ -14,15 +14,15 @@ async function main(req, res) {
       throw new Error("Please enter a document ID.");
     }
 
-    // to insert single document with id
-    const insertResult = await collection.insertOne({
-      _id: 1,
-      departments: departments,
-    });
+    // to find single document with id
+    const foundResult = await collection.findOne(
+      { _id: documentId },
+      { projection: { departments: 1 } }
+    );
 
     res.status(200).json({
-      message: "Document inserted successfully",
-      insertResult,
+      message: "Document readed successfully",
+      foundResult,
     });
   } catch (error) {
     console.log("Error in main function:", error.message);

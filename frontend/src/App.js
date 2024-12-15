@@ -1,6 +1,8 @@
 // import logo from './logo.svg';
 import "./App.css";
 import { Body } from "./component/body";
+import { Provider } from "react-redux";
+import appStore from "./utils/store";
 
 function App() {
   return (
@@ -21,7 +23,9 @@ function App() {
     //   </header>
     // </div>
     <>
-      <Body></Body>
+      <Provider store={appStore}>
+        <Body></Body>
+      </Provider>
     </>
   );
 }

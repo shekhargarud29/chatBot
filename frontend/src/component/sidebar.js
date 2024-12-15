@@ -2,11 +2,14 @@ import { BotTyping } from "./botTyping";
 import { UserTyping } from "./userTyping";
 import { BotOption } from "./botOption";
 import { useEffect, useState } from "react";
+import { MongoDoc } from "../hooks/useMongoDoc";
 export const SideBar = () => {
   const [open, setOpen] = useState(false);
   // const [hasPlayed, setHasPlayed] = useState(false);
+  const chatBotObject = MongoDoc();
+  // console.log(chatBotObject);
   useEffect(() => {
-    console.log(open);
+    // console.log(open);
     if (open) {
       //   document.getElementById("bmc-iframe").style.minHeight = "550px";
       document.getElementById("bmc-iframe").style.height = "550px";
@@ -113,35 +116,47 @@ export const SideBar = () => {
                 className="d-flex flex-column justify-content-between   "
                 style={{ height: "488.875px" }}
               >
-                {/* middle part */}
-                <main
-                  className=" m-2 me-0 chatbot-middle"
-                  style={{ overflow: "auto" }}
-                >
-                  {/* time */}
-                  <div className="d-flex p-2 justify-content-center">
-                    <div className="">
-                      <p
-                        style={{ fontSize: "11px" }}
-                        className="text-secondary m-0 fw-lighter"
-                      >
-                        Nov 8, 3:16 PM
-                      </p>
-                      <hr className="m-1"></hr>
+                {chatBotObject?.error !== null ? (
+                  <>
+                    <div>
+                      <h4>Sorry we are having server issues</h4>
+                      <h4>{chatBotObject?.error}</h4>
                     </div>
-                  </div>
-                  {/* chatbot typing */}
-                  <BotTyping />
-                  {/* user typing */}
-                  <UserTyping />
-                </main>
-                {/* bottom part */}
-                <footer
-                  className="border-top chatbot-bottom pt-1"
-                  style={{ maxHeight: "130px" }}
-                >
-                  <BotOption />
-                </footer>
+                  </>
+                ) : (
+                  <>
+                    {/* middle part */}
+                    <main
+                      className=" m-2 me-0 chatbot-middle"
+                      style={{ overflow: "auto" }}
+                    >
+                      {/* time */}
+                      <div className="d-flex p-2 justify-content-center">
+                        <div className="">
+                          <p
+                            style={{ fontSize: "11px" }}
+                            className="text-secondary m-0 fw-lighter"
+                          >
+                            Nov 8, 3:16 PM
+                          </p>
+                          <hr className="m-1"></hr>
+                        </div>
+                      </div>
+
+                      {/* chatbot typing */}
+                      <BotTyping chatBotData={chatBotObject?.chatBotData} />
+                      {/* user typing */}
+                      {/* <UserTyping /> */}
+                    </main>
+                    {/* bottom part */}
+                    <footer
+                      className="border-top chatbot-bottom pt-1"
+                      style={{ maxHeight: "130px" }}
+                    >
+                      <BotOption chatBotData={chatBotObject?.chatBotData} />
+                    </footer>
+                  </>
+                )}
               </div>
             </div>
           </div>

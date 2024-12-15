@@ -14,15 +14,13 @@ async function main(req, res) {
       throw new Error("Please enter a document ID.");
     }
 
-    // to insert single document with id
-    const insertResult = await collection.insertOne({
-      _id: 1,
-      departments: departments,
-    });
+    // to find single document with id
+    // to read all data from the collection
+    const findResult = await collection.find({}).toArray();
 
     res.status(200).json({
-      message: "Document inserted successfully",
-      insertResult,
+      message: "Database readed successfully",
+      findResult,
     });
   } catch (error) {
     console.log("Error in main function:", error.message);
