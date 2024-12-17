@@ -39,13 +39,13 @@ export const BotTyping = (chatBotData) => {
       {/* dynamic */}
       {Object.values(chatObj).map((value, index) => {
         console.log(value);
-        const { department_name, answer } = value;
+        const { option, answer } = value;
         return (
           <div key={index}>
             {/* user */}
             <div className="d-flex py-1 pe-2 justify-content-end">
               <small className="bg-primary text-light d-inline m-0 py-1 px-2 rounded-3 fs-bolder">
-                {department_name}
+                {option}
               </small>
             </div>
             {/* bot */}

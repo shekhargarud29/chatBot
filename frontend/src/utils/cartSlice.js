@@ -9,9 +9,9 @@ const cartSlice = createSlice({
   reducers: {
     addChat: (state, action) => {
       console.log(action.payload);
-      const { department_name, answer } = action.payload;
+      const { option, answer } = action.payload;
       state.chatObj[state.count] = {
-        department_name: department_name,
+        option: option,
         answer: answer,
       };
       console.log(state.chatObj);

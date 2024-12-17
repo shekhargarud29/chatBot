@@ -3,11 +3,13 @@ import { UserTyping } from "./userTyping";
 import { BotOption } from "./botOption";
 import { useEffect, useState } from "react";
 import { MongoDoc } from "../hooks/useMongoDoc";
+import { Shimmer } from "./shimmer";
 export const SideBar = () => {
   const [open, setOpen] = useState(false);
   // const [hasPlayed, setHasPlayed] = useState(false);
   const chatBotObject = MongoDoc();
-  // console.log(chatBotObject);
+  console.log(chatBotObject);
+
   useEffect(() => {
     // console.log(open);
     if (open) {
@@ -73,91 +75,100 @@ export const SideBar = () => {
         >
           <div className=" ">
             <div className=" alogn rounded-3 chatbot-width chatbot-height ">
-              {/* top part */}
-              <header className="d-flex p-1 py-2 border-bottom justify-content-between">
-                {/* left */}
-                <div className="d-flex">
-                  <div className="col-2 chatbot-logo px-2">
-                    <img
-                      style={{ width: "100%" }}
-                      alt="chatbot-image"
-                      src="https://s.cafebazaar.ir/images/icons/com.ai.photoeditor.fx-d46d301e-6921-4ace-8d11-18f7f524db71_512x512.png?x-img=v1/resize,h_256,w_256,lossless_false/optimize"
-                    ></img>
-                  </div>
-                  <div className="d-flex align-items-center p-1">
-                    <h6 className="fw-bold m-0">Ask Bot</h6>
-                  </div>
-                </div>
-                {/* right */}
-                <div className="d-flex px-2 align-items-center" id="cross">
-                  <h4 className="m-0">
-                    <i
-                      style={{ transition: "0.35s" }}
-                      onMouseEnter={(e) => {
-                        e.target.style.transform = "rotate(180deg)";
-                      }}
-                      onMouseLeave={(e) => {
-                        e.target.style.transform = "rotate(0deg)";
-                      }}
-                      onClick={() => {
-                        console.log(open);
-
-                        setOpen(!open);
-                        //   handleOpen();
-                      }}
-                      className="fa-solid fa-xmark"
-                    ></i>
-                  </h4>
-                </div>
-              </header>
-
-              {/* main part */}
-              <div
-                className="d-flex flex-column justify-content-between   "
-                style={{ height: "488.875px" }}
-              >
-                {chatBotObject?.error !== null ? (
-                  <>
-                    <div>
-                      <h4>Sorry we are having server issues</h4>
-                      <h4>{chatBotObject?.error}</h4>
-                    </div>
-                  </>
-                ) : (
-                  <>
-                    {/* middle part */}
-                    <main
-                      className=" m-2 me-0 chatbot-middle"
-                      style={{ overflow: "auto" }}
-                    >
-                      {/* time */}
-                      <div className="d-flex p-2 justify-content-center">
-                        <div className="">
-                          <p
-                            style={{ fontSize: "11px" }}
-                            className="text-secondary m-0 fw-lighter"
-                          >
-                            Nov 8, 3:16 PM
-                          </p>
-                          <hr className="m-1"></hr>
-                        </div>
+              {chatBotObject?.loading ? (
+                <>
+                  <Shimmer />
+                </>
+              ) : (
+                <>
+                  {" "}
+                  {/* top part */}
+                  <header className="d-flex p-1 py-2 border-bottom justify-content-between">
+                    {/* left */}
+                    <div className="d-flex">
+                      <div className="col-2 chatbot-logo px-2">
+                        <img
+                          style={{ width: "100%" }}
+                          alt="chatbot-image"
+                          src="https://s.cafebazaar.ir/images/icons/com.ai.photoeditor.fx-d46d301e-6921-4ace-8d11-18f7f524db71_512x512.png?x-img=v1/resize,h_256,w_256,lossless_false/optimize"
+                        ></img>
                       </div>
+                      <div className="d-flex align-items-center p-1">
+                        <h6 className="fw-bold m-0">Ask Bot</h6>
+                      </div>
+                    </div>
+                    {/* right */}
+                    <div className="d-flex px-2 align-items-center" id="cross">
+                      <h4 className="m-0">
+                        <i
+                          style={{ transition: "0.35s" }}
+                          onMouseEnter={(e) => {
+                            e.target.style.transform = "rotate(180deg)";
+                          }}
+                          onMouseLeave={(e) => {
+                            e.target.style.transform = "rotate(0deg)";
+                          }}
+                          onClick={() => {
+                            console.log(open);
 
-                      {/* chatbot typing */}
-                      <BotTyping chatBotData={chatBotObject?.chatBotData} />
-                      {/* user typing */}
-                      {/* <UserTyping /> */}
-                    </main>
-                    {/* bottom part */}
-                    <footer
-                      className="border-top chatbot-bottom pt-1"
-                      style={{ maxHeight: "130px" }}
-                    >
-                      <BotOption chatBotData={chatBotObject?.chatBotData} />
-                    </footer>
-                  </>
-                )}
-              </div>
+                            setOpen(!open);
+                            //   handleOpen();
+                          }}
+                          className="fa-solid fa-xmark"
+                        ></i>
+                      </h4>
+                    </div>
+                  </header>
+                  {/* main part */}
+                  <div
+                    className="d-flex flex-column justify-content-between   "
+                    style={{ height: "488.875px" }}
+                  >
+                    {chatBotObject?.error !== null &&
+                    chatBotObject?.chatBotData.length === 0 ? (
+                      <>
+                        <div>
+                          <h4>Sorry we are having server issues</h4>
+                          <h4>{chatBotObject?.error}</h4>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        {/* middle part */}
+                        <main
+                          className=" m-2 me-0 chatbot-middle"
+                          style={{ overflow: "auto" }}
+                        >
+                          {/* time */}
+                          <div className="d-flex p-2 justify-content-center">
+                            <div className="">
+                              <p
+                                style={{ fontSize: "11px" }}
+                                className="text-secondary m-0 fw-lighter"
+                              >
+                                Nov 8, 3:16 PM
+                              </p>
+                              <hr className="m-1"></hr>
+                            </div>
+                          </div>
+
+                          {/* chatbot typing */}
+                          <BotTyping chatBotData={chatBotObject?.chatBotData} />
+                          {/* user typing */}
+                          {/* <UserTyping /> */}
+                        </main>
+                        {/* bottom part */}
+                        <footer
+                          className="border-top chatbot-bottom pt-1"
+                          style={{ maxHeight: "130px" }}
+                        >
+                          <BotOption chatBotData={chatBotObject?.chatBotData} />
+                        </footer>
+                      </>
+                    )}
+                  </div>
+                </>
+              )}
             </div>
           </div>
         </div>

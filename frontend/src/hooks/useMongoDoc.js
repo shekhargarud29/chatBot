@@ -4,9 +4,10 @@ import { MONGO_READ_URL } from "../const/config";
 export const MongoDoc = () => {
   const [chatBotData, setchatBotData] = useState([]);
   const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
     const getData = async () => {
-      await fetch(MONGO_READ_URL || [])
+      await fetch(MONGO_READ_URL || null)
         .then((response) => {
           if (!response.ok) {
             // Handle HTTP errors
@@ -46,6 +47,7 @@ export const MongoDoc = () => {
   // console.log(chatBotData);
   const chatBotObject = {
     chatBotData: chatBotData,
+    loading: loading,
     error: error,
   };
   // console.log(chatBotObject);
