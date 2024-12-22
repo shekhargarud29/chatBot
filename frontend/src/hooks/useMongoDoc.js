@@ -11,6 +11,7 @@ export const MongoDoc = () => {
         .then((response) => {
           if (!response.ok) {
             // Handle HTTP errors
+            // setLoading(false);
             throw new Error(`HTTP error! Status: ${response.status}`);
           }
           return response.json();
@@ -23,6 +24,7 @@ export const MongoDoc = () => {
             // Handle invalid data structure
             throw new Error("Received data has an invalid structure");
           }
+          setLoading(false);
         })
         .catch((error) => {
           // Handle different error scenarios
@@ -39,6 +41,7 @@ export const MongoDoc = () => {
           } else {
             setError("An unexpected error occurred. Please try again later.");
           }
+          setLoading(false);
         });
     };
 

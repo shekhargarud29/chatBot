@@ -16,7 +16,11 @@ async function main(req, res) {
     // to find single document with id
 
     const findResult = await collection.findOne(
-      { _id: documentId, "departments.department_name": department_name },
+      {
+        _id: documentId,
+        "departments.department_name": department_name,
+        // "departments.main_options.sub_options": "",
+      },
       {
         projection: { "departments.$": 1 },
       }

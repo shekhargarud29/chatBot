@@ -1,5 +1,5 @@
-import { BotTyping } from "./botTyping";
-import { UserTyping } from "./userTyping";
+import { BotTyping, BotTypingParent } from "./botTypingParent";
+import { UserTyping } from "./botTypingChild";
 import { BotOption } from "./botOption";
 import { useEffect, useState } from "react";
 import { MongoDoc } from "../hooks/useMongoDoc";
@@ -8,7 +8,6 @@ export const SideBar = () => {
   const [open, setOpen] = useState(false);
   // const [hasPlayed, setHasPlayed] = useState(false);
   const chatBotObject = MongoDoc();
-  console.log(chatBotObject);
 
   useEffect(() => {
     // console.log(open);
@@ -59,9 +58,9 @@ export const SideBar = () => {
             bottom: 90,
             height: 550,
             opacity: 0,
-            width: 350,
+            width: 360,
             // border: "1px solid black",
-            maxWidth: 350,
+            maxWidth: 360,
             minHeight: 550,
             maxHeight: 550,
             borderRadius: 10,
@@ -76,9 +75,12 @@ export const SideBar = () => {
           <div className=" ">
             <div className=" alogn rounded-3 chatbot-width chatbot-height ">
               {chatBotObject?.loading ? (
-                <>
-                  <Shimmer />
-                </>
+                <div
+                  className=" d-flex justify-content-center align-items-center"
+                  style={{ height: "550px" }}
+                >
+                  <span className="sidebarLoader m-auto"></span>
+                </div>
               ) : (
                 <>
                   {" "}
@@ -109,7 +111,7 @@ export const SideBar = () => {
                             e.target.style.transform = "rotate(0deg)";
                           }}
                           onClick={() => {
-                            console.log(open);
+                            // console.log(open);
 
                             setOpen(!open);
                             //   handleOpen();
@@ -137,10 +139,11 @@ export const SideBar = () => {
                         {/* middle part */}
                         <main
                           className=" m-2 me-0 chatbot-middle"
+                          id="main"
                           style={{ overflow: "auto" }}
                         >
                           {/* time */}
-                          <div className="d-flex p-2 justify-content-center">
+                          {/* <div className="d-flex p-2 justify-content-center">
                             <div className="">
                               <p
                                 style={{ fontSize: "11px" }}
@@ -150,10 +153,12 @@ export const SideBar = () => {
                               </p>
                               <hr className="m-1"></hr>
                             </div>
-                          </div>
+                          </div> */}
 
                           {/* chatbot typing */}
-                          <BotTyping chatBotData={chatBotObject?.chatBotData} />
+                          <BotTypingParent
+                            chatBotData={chatBotObject?.chatBotData}
+                          />
                           {/* user typing */}
                           {/* <UserTyping /> */}
                         </main>
