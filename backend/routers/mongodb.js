@@ -30,8 +30,24 @@ module.exports = function (app) {
   );
 
   // deleting apis
-  app.post("/src/mongoChat/deleteChat/", function (req, res) {
-    x = require(__dirname + "./../src/mongoChat/deleteChat");
+  app.post("/src/mongoChat/base/deleting/deleteChat", function (req, res) {
+    x = require(__dirname + "./../src/mongoChat/base/deleting/deleteChat");
+    x.main(req, res);
+  });
+  app.post(
+    "/src/mongoChat/base/deleting/deleteCollection/",
+    function (req, res) {
+      x = require(__dirname +
+        "./../src/mongoChat/base/deleting/deleteCollection");
+      x.main(req, res);
+    }
+  );
+  app.post("/src/mongoChat/base/deleting/deleteDataBase/", function (req, res) {
+    x = require(__dirname + "./../src/mongoChat/base/deleting/deleteDataBase");
+    x.main(req, res);
+  });
+  app.post("/src/mongoChat/base/deleting/deleteDocument/", function (req, res) {
+    x = require(__dirname + "./../src/mongoChat/base/deleting/deleteDocument");
     x.main(req, res);
   });
 
@@ -58,8 +74,15 @@ module.exports = function (app) {
   });
 
   // updating apis
-  app.post("/src/mongoChat/updateChat/", function (req, res) {
-    x = require(__dirname + "./../src/mongoChat/updateChat");
+  app.post(
+    "/src/mongoChat/base/updating/updatinDepartments/",
+    function (req, res) {
+      x = require("./../src/mongoChat/base/updating/updatinDepartments");
+      x.main(req, res);
+    }
+  );
+  app.post("/src/mongoChat/base/updating/updateChat/", function (req, res) {
+    x = require("./../src/mongoChat/base/updating/updateChat");
     x.main(req, res);
   });
 };

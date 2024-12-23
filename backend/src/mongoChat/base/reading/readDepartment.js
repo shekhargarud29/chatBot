@@ -1,7 +1,8 @@
 async function main(req, res) {
-  const { documentId, departments } = req.body;
+  const { documentId, department_name } = req.body;
   const { mongoConnect } = require("../../mongoConnect");
   let client;
+
   try {
     client = await mongoConnect();
     if (!client) {
@@ -9,40 +10,55 @@ async function main(req, res) {
     }
     const db = client.db(process.env.MONGO_DB);
     const collection = db.collection(process.env.MONGO_COLLECTION);
-    if (!documentId && departments) {
-      throw new Error("Please enter a document ID or mention departments.");
+
+    // Check if documentId and department_name are provided
+    if (!documentId || !department_name) {
+      throw new Error("Please provide a document ID and department name.");
     }
 
-    // to find single document with id
-
+    // Find the document by ID
     const findResult = await collection
       .aggregate([
         {
-          $match: { _id: documentId },
+          $match: { _id: documentId }, // Match document by its _id
         },
         {
           $project: {
-            departments: {
-              $filter: {
-                input: "$departments",
-                as: "department",
-                cond: { $in: ["$$department.department_name", departments] },
-              },
-            },
+            departments: 1, // Include all departments in the result
           },
         },
       ])
       .toArray();
 
+    console.log("Find Result before filter:", findResult); // Debug log
+
+    // Check if document exists
+    if (findResult.length === 0) {
+      return res.status(404).json({
+        message: "No document found with the provided document ID.",
+      });
+    }
+
+    // Now filter by department_name
+    const filteredDepartments = findResult[0].departments.filter(
+      (department) => department.option === department_name
+    );
+
+    if (filteredDepartments.length === 0) {
+      return res.status(404).json({
+        message: "No department found with the provided department name.",
+      });
+    }
+
     res.status(200).json({
-      message: "Department readed successfully",
-      findResult,
+      message: "Department retrieved successfully",
+      findResult: filteredDepartments,
     });
   } catch (error) {
     console.log("Error in main function:", error.message);
     res.status(500).json({
       message: "An error occurred while processing your request.",
-      error: error.message, // Optional: Include error details for debugging
+      error: error.message,
     });
   } finally {
     if (client) {
