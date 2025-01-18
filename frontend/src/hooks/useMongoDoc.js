@@ -18,7 +18,7 @@ export const MongoDoc = () => {
         })
         .then((data) => {
           if (data?.foundResult?.departments) {
-            // console.log(data);
+            console.log(data);
             setchatBotData(data.foundResult);
           } else {
             // Handle invalid data structure

@@ -85,4 +85,15 @@ module.exports = function (app) {
     x = require("./../src/mongoChat/base/updating/updateChat");
     x.main(req, res);
   });
+
+  // check
+  app.get("/src/mongoChat/base/check/", function (req, res) {
+    x = require("../src/mongoChat/base/check");
+    x.main(req, res);
+  });
+  // checkcreate
+  app.get("/src/mongoChat/base/checkcreate/", function (req, res) {
+    x = require("../src/mongoChat/base/checkcreate");
+    x.main(req, res);
+  });
 };

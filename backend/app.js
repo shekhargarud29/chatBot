@@ -4,6 +4,12 @@ const bodyParser = require("body-parser");
 const cors = require("cors");
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: false }));
+const corsOptions = {
+  origin: "http://localhost:3000/", // Replace with your client domain
+  methods: ["GET", "POST"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+};
+
 app.use(cors());
 // parse application/json
 app.use(bodyParser.json());
