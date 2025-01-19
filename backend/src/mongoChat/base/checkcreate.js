@@ -76,7 +76,7 @@ async function main(req, res) {
               break;
             case "removeOption":
               console.log("removing");
-              await collection.deleteMany({ "document.option": targetOption });
+              await collection.deleteOne({ _id: document._id });
               break;
             default:
               console.log("Invalid action");

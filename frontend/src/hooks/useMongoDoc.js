@@ -17,7 +17,11 @@ export const MongoDoc = () => {
           return response.json();
         })
         .then((data) => {
-          if (data?.foundResult?.departments) {
+          console.log(data);
+          if (
+            data?.foundResult?.departments &&
+            data.foundResult.departments.length > 0
+          ) {
             console.log(data);
             setchatBotData(data.foundResult);
           } else {
@@ -53,7 +57,7 @@ export const MongoDoc = () => {
     loading: loading,
     error: error,
   };
-  // console.log(chatBotObject);
+  console.log(chatBotObject);
 
   return chatBotObject;
 };

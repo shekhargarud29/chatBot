@@ -8,7 +8,7 @@ export const SideBar = () => {
   const [open, setOpen] = useState(false);
   // const [hasPlayed, setHasPlayed] = useState(false);
   const chatBotObject = MongoDoc();
-
+  console.log(chatBotObject);
   useEffect(() => {
     // console.log(open);
     if (open) {
