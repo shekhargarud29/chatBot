@@ -72,6 +72,10 @@ module.exports = function (app) {
     x = require(__dirname + "./../src/mongoChat/base/reading/readSubOPtion");
     x.main(req, res);
   });
+  app.get("/src/mongoChat/base/reading/readTargetOption/", function (req, res) {
+    x = require(__dirname + "./../src/mongoChat/base/reading/readTargetOption");
+    x.main(req, res);
+  });
 
   // updating apis
   app.post(

@@ -59,26 +59,28 @@ export const BotOption = (chatBotData) => {
           >
             {currentOptions &&
               currentOptions.length > 0 &&
-              currentOptions.map((item, index) => {
-                const { option } = item;
-                // console.log(item);
-                return (
-                  <div key={index}>
-                    <div
-                      className="btn btn-outline-secondary p-1 mt-2 mx-2  rounded-5"
-                      style={{ marginBottom: "1px !important" }}
-                      onClick={() => {
-                        handleOptionClick(item, option);
-                        // count++;
-                      }}
-                    >
-                      <h6 className="m-0 " style={{ fontSize: "15px" }}>
-                        {option}
-                      </h6>
+              currentOptions
+                .filter((item) => item?.isVisible !== false)
+                .map((item, index) => {
+                  const { option } = item;
+                  // console.log(item);
+                  return (
+                    <div key={index}>
+                      <div
+                        className="btn btn-outline-secondary p-1 mt-2 mx-2  rounded-5"
+                        style={{ marginBottom: "1px !important" }}
+                        onClick={() => {
+                          handleOptionClick(item, option);
+                          // count++;
+                        }}
+                      >
+                        <h6 className="m-0 " style={{ fontSize: "15px" }}>
+                          {option}
+                        </h6>
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
+                  );
+                })}
             {backOption.length > 0 ? (
               <>
                 <div

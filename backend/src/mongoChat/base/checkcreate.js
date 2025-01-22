@@ -163,10 +163,10 @@ async function main(req, res) {
     }
     console.log("FOUNdRes: ", foundResult);
     res.status(200).json({
-      message: "Document readed successfully",
-      // message: find
-      //   ? "Document read successfully, item found"
-      //   : "Document read successfully, but item not found",
+      // message: "Document readed successfully",
+      message: result
+        ? "Document read successfully, item found"
+        : "Document read successfully, but item not found",
 
       foundResult: foundResult,
     });
@@ -176,12 +176,11 @@ async function main(req, res) {
       message: "An error occurred while processing your request.",
       error: error.message, // Optional: Include error details for debugging
     });
+  } finally {
+    if (client) {
+      await client.close();
+    }
   }
-  // finally {
-  //   if (client) {
-  //     await client.close();
-  //   }
-  // }
 }
 
 module.exports = {

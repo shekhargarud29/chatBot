@@ -1,5 +1,5 @@
 async function main(req, res) {
-  const { documentId, departments } = req.body;
+  const { _id, option, answer, sub_options } = req.body;
 
   const { mongoConnect } = require("../../mongoConnect");
   let client;
@@ -10,15 +10,23 @@ async function main(req, res) {
     }
     const db = client.db(process.env.MONGO_DB);
     const collection = db.collection(process.env.MONGO_COLLECTION);
-    if (!documentId) {
-      throw new Error("Please enter a document ID.");
+    if (!_id && !option && !answer && !sub_options) {
+      throw new Error(
+        "Please enter a document ID, option, answer, sub_options."
+      );
     }
 
     // to insert single document with id
     const insertResult = await collection.insertOne({
-      _id: 1,
-      departments: departments,
+      _id,
+      option,
+      answer,
+      sub_options,
     });
+    await collection.updateMany(
+      { isVisible: { $exists: false } }, // Select documents missing isVisible
+      { $set: { isVisible: true } } // Add isVisible with default value true
+    );
 
     res.status(200).json({
       message: "Document inserted successfully",

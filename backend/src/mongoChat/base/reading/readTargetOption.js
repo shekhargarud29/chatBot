@@ -1,13 +1,8 @@
 async function main(req, res) {
+  //   const { documentId } = req.body;
+  // const documentId = req.body.documentId || 1;
   const { rootOption, targetOption } = req.body;
-  const { _id, option, answer, sub_options } = req.body;
-  // console.log("target is: ", targetOption);
-  //
-  //   console.log("check working");
-
-  // console.log(insertedResult);
-
-  const { mongoConnect } = require("../mongoConnect");
+  const { mongoConnect } = require("../../mongoConnect");
   let client;
   try {
     client = await mongoConnect();
@@ -15,63 +10,19 @@ async function main(req, res) {
       throw new Error("Failed to establish a database connection.");
     }
     const db = client.db(process.env.MONGO_DB);
-    const collection = db.collection("check");
-    // if (!documentId) {
-    //   throw new Error("Please enter a document ID.");
-    // }
+    const collection = db.collection(process.env.MONGO_COLLECTION);
+    if (!rootOption && !targetOption) {
+      throw new Error("Please enter a RootOption and TargetOption.");
+    }
 
-    // to insert document
-    // const foundResult = await collection.insertOne({
-    //   _id,
-    //   option,
-    //   answer,
-    //   sub_options,
-    // });
+    //   reading target option
 
-    // to find single document with id
-    // method 1
-    // const foundResult = await collection
-    //   .aggregate([
-    //     {
-    //       $group: {
-    //         _id: 0,
-    //         departments: {
-    //           $push: "$$ROOT",
-    //         },
-    //         // filtered: {
-    //         //   $push: {
-    //         //     option: "$option",
-    //         //     answer: "$answer",
-    //         //   },
-    //         // },
-    //       },
-    //     },
-    //     {
-    //       $project: {
-    //         _id: 1,
-    //         departments: 1,
-    //         // filtered: 1,
-    //       },
-    //     },
-    //   ])
-    //   .toArray();
-    // console.log(foundResult[0]);
+    let paths = `sub_options`;
+    let find = false;
+    let foundResult;
+    let count = 0;
 
-    // method 2
-    // let foundResult = await collection
-    //   .aggregate([
-    //     { $match: { _id: 1 } },
-    //     {
-    //       $unwind: {
-    //         path: paths,
-    //         preserveNullAndEmptyArrays: true,
-    //       },
-    //     },
-    //   ])
-    //   .toArray();
-
-    // reading target option
-
+    // to unwind array
     async function searchNestedOption(rootOption, targetOption, paths, find) {
       let aggregatepaths = "$sub_options";
       const pipeline = [
@@ -101,11 +52,8 @@ async function main(req, res) {
       // console.log("result: " + JSON.stringify(result));
       return result.length > 0 ? result : null;
     }
-    count = 0;
 
-    let paths = `sub_options`;
-    let find = false;
-    let foundResult;
+    // to check for targetOption
     while (!find) {
       foundResult = await searchNestedOption(
         rootOption,
@@ -155,24 +103,17 @@ async function main(req, res) {
         count++;
       }
 
-      if (count > 4) {
+      if (count > foundResult.length) {
         console.log("TargetOption not found");
-        throw new Error("Maximum depth reached, target option not found.");
-        // console.log("Maximum depth reached, target option not found.");
-        // break;
+        throw new Error(
+          `Maximum depth reached, unable to find {Option: ${targetOption}}.`
+        );
       }
     }
 
-    // const result = await searchNestedOption("MCA", "Admissions Process");
-    // if (foundResult == null) {
-    //   return res.status(404).json({
-    //     message: `Option "${targetOption}" not found under "${rootOption}".`,
-    //   });
-    // }
-
     res.status(200).json({
-      message: "Document readed successfully",
-      foundResult: foundResult[0],
+      message: `{Option: ${targetOption}} readed successfully `,
+      foundResult,
     });
   } catch (error) {
     console.log("Error in main function:", error.message);

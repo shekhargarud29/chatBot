@@ -157,7 +157,7 @@ export const SideBar = () => {
 
                           {/* chatbot typing */}
                           <BotTypingParent
-                            chatBotData={chatBotObject?.chatBotData}
+                          // chatBotData={chatBotObject?.chatBotData}
                           />
                           {/* user typing */}
                           {/* <UserTyping /> */}
