@@ -1,112 +1,109 @@
 {
-  "documentId": 1,
-  "departments": [
+  "_id": 1,
+  "option": "MCA",
+  "answer": "Select below",
+  "isVisible": true,
+  "sub_options": [
     {
-      "option": "MCA",
+      "option": "Admissions Process",
       "answer": "Select below",
+      "isVisible": true,
       "sub_options": [
         {
-          "option": "Admissions Process",
-          "answer": "Select below",
-          "sub_options": [
-            {
-              "option": "Eligibility Criteria",
-              "answer": "Candidates need a bachelor’s degree (50% marks) and must appear for MAH-MCA-CET.",
-              "sub_options": []
-            },
-            {
-              "option": "Application Process",
-              "answer": "Applications are through DTE Maharashtra’s website under CAP.",
-              "sub_options": []
-            },
-            {
-              "option": "Important Dates",
-              "answer": "Admissions open in June; check DTE or VJTI MCA page for dates.",
-              "sub_options": []
-            }
-          ]
+          "option": "Eligibility Criteria",
+          "answer": "Candidates need a bachelor’s degree (50% marks) and must appear for MAH-MCA-CET.",
+          "isVisible": true,
+          "sub_options": []
         },
         {
-          "option": "Program Details",
-          "answer": "Select from below",
-          "sub_options": [
-            {
-              "option": "Course Duration",
-              "answer": "The MCA program is a 2-year full-time course.",
-              "sub_options": []
-            },
-            {
-              "option": "Intake Capacity",
-              "answer": "The program has an intake of 70 students.",
-              "sub_options": []
-            },
-            {
-              "option": "Syllabus",
-              "answer": "The syllabus includes computer applications, programming, and software development. Below are the links for the syllabus.",
-              "sub_options": [
-                {
-                  "option": "1st year syllabus",
-                  "answer": "Below is the link for the 1st year syllabus:",
-                  "link": "https://vjti.ac.in/wp-content/uploads/2024/06/220331_MCA-SyllabusFYMCA2yrcourse-1.pdf",
-                  "sub_options": []
-                },
-                {
-                  "option": "2nd year syllabus",
-                  "answer": "Below is the link for the 2nd year syllabus:",
-                  "link": "https://vjti.ac.in/wp-content/uploads/2024/06/220331_2yr_MCA_SYMCA-r5-scheme-1-2020-2021.pdf",
-                  "sub_options": []
-                }
-              ]
-            }
-          ]
+          "option": "Application Process",
+          "answer": "Applications are through DTE Maharashtra’s website under CAP.",
+          "isVisible": true,
+          "sub_options": []
         },
         {
-          "option": "Fees and Scholarships",
-          "answer": "Select from below",
-          "sub_options": [
-            {
-              "option": "Course Fees",
-              "answer": "For updated fee details, refer to the VJTI MCA page or contact the admissions office.",
-              "sub_options": []
-            },
-            {
-              "option": "Scholarships",
-              "answer": "Scholarships are available based on merit and government policies.",
-              "sub_options": []
-            }
-          ]
+          "option": "Important Dates",
+          "answer": "Admissions open in June; check DTE or VJTI MCA page for dates.",
+          "isVisible": true,
+          "sub_options": []
+        }
+      ]
+    },
+    {
+      "option": "Program Details",
+      "answer": "Select from below",
+      "isVisible": true,
+      "sub_options": [
+        {
+          "option": "Course Duration",
+          "answer": "The MCA program is a 2-year full-time course.",
+          "isVisible": true,
+          "sub_options": []
         },
         {
-          "option": "Placements and Opportunities",
-          "answer": "Select from below",
-          "sub_options": [
-            {
-              "option": "Placement Assistance",
-              "answer": "VJTI offers placement opportunities in IT, consulting, and development.",
-              "sub_options": []
-            },
-            {
-              "option": "Internships",
-              "answer": "Internships are arranged through VJTI’s industry and alumni network.",
-              "sub_options": []
-            }
-          ]
+          "option": "Intake Capacity",
+          "answer": "The program has an intake of 70 students.",
+          "isVisible": true,
+          "sub_options": []
         },
         {
-          "option": "Contact Information",
-          "answer": "Select from below",
+          "option": "Syllabus",
+          "answer": "The syllabus includes computer applications, programming, and software development. Below are the links for the syllabus.",
+          "isVisible": true,
           "sub_options": [
             {
-              "option": "Admissions Office Contact",
-              "answer": "Contact the VJTI admissions office via phone or email on the contact page.",
+              "option": "1st year syllabus",
+              "answer": "Below is the link for the 1st year syllabus:",
+              "link": "https://vjti.ac.in/wp-content/uploads/2024/06/220331_MCA-SyllabusFYMCA2yrcourse-1.pdf",
+              "isVisible": true,
               "sub_options": []
             },
             {
-              "option": "Department Office",
-              "answer": "The MCA department office handles program-specific queries.",
+              "option": "2nd year syllabus",
+              "answer": "Below is the link for the 2nd year syllabus:",
+              "link": "https://vjti.ac.in/wp-content/uploads/2024/06/220331_2yr_MCA_SYMCA-r5-scheme-1-2020-2021.pdf",
+              "isVisible": true,
               "sub_options": []
             }
           ]
+        }
+      ]
+    },
+    {
+      "option": "Placements and Opportunities",
+      "answer": "Select from below",
+      "isVisible": true,
+      "sub_options": [
+        {
+          "option": "Placement Assistance",
+          "answer": "VJTI offers placement opportunities in IT, consulting, and development.",
+          "isVisible": true,
+          "sub_options": []
+        },
+        {
+          "option": "Internships",
+          "answer": "Internships are arranged through VJTI’s industry and alumni network.",
+          "isVisible": true,
+          "sub_options": []
+        }
+      ]
+    },
+    {
+      "option": "Contact Information",
+      "answer": "Select from below",
+      "isVisible": true,
+      "sub_options": [
+        {
+          "option": "Admissions Office Contact",
+          "answer": "Contact the VJTI admissions office via phone or email on the contact page.",
+          "isVisible": true,
+          "sub_options": []
+        },
+        {
+          "option": "Department Office",
+          "answer": "The MCA department office handles program-specific queries.",
+          "isVisible": true,
+          "sub_options": []
         }
       ]
     }

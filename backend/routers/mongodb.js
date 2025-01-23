@@ -79,16 +79,19 @@ module.exports = function (app) {
 
   // updating apis
   app.post(
-    "/src/mongoChat/base/updating/updatinDepartments/",
+    "/src/mongoChat/base/updating/updateNameorAnswer/",
     function (req, res) {
-      x = require("./../src/mongoChat/base/updating/updatinDepartments");
+      x = require("./../src/mongoChat/base/updating/updateNameorAnswer");
       x.main(req, res);
     }
   );
-  app.post("/src/mongoChat/base/updating/updateChat/", function (req, res) {
-    x = require("./../src/mongoChat/base/updating/updateChat");
-    x.main(req, res);
-  });
+  app.post(
+    "/src/mongoChat/base/updating/updateSubOptions/",
+    function (req, res) {
+      x = require("./../src/mongoChat/base/updating/updateSubOptions");
+      x.main(req, res);
+    }
+  );
 
   // check
   app.get("/src/mongoChat/base/check/", function (req, res) {
