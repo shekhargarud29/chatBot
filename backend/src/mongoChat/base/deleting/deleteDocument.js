@@ -20,7 +20,11 @@ async function main(req, res) {
     }
 
     // Validate the action
-    const validActions = ["undoOption", "removeOption"];
+    const validActions = [
+      "undoOption",
+      "removeOptionTemporarily",
+      "removeOptionPermanently",
+    ];
     if (!validActions.includes(action)) {
       return res.status(400).json({
         message: `Invalid action: '${action}'. Valid actions are ${validActions.join(
@@ -45,16 +49,19 @@ async function main(req, res) {
       // Step 2: Recursive function to find and modify the target option
       function modifySubOption(subOptions) {
         for (let i = 0; i < subOptions.length; i++) {
-          console.log("i is:", i);
+          // console.log("i is:", i);
           if (subOptions[i].option === targetOption) {
             let message = "";
             switch (action) {
               case "undoOption":
                 subOptions[i].isVisible = true;
                 return (message = `${targetOption} is now visible`);
-              case "removeOption":
+              case "removeOptionTemporarily":
                 subOptions[i].isVisible = false;
                 return (message = `${targetOption} is now hidden`);
+              case "removeOptionPermanently":
+                subOptions.splice(i, 1);
+                break;
               default:
                 message = "Invalid action value.";
             }
@@ -64,9 +71,8 @@ async function main(req, res) {
             subOptions[i].sub_options.length > 0
           ) {
             const response = modifySubOption(subOptions[i].sub_options);
-            console.log(response);
+            // console.log(response);
             if (response) return response;
-            // if (modifySubOption(subOptions[i].sub_options)) return true; // Recursive call
           }
         }
         return false;
@@ -83,9 +89,13 @@ async function main(req, res) {
               document.isVisible = true;
               return (message = `${document.option} is now visible.`);
 
-            case "removeOption":
+            case "removeOptionTemporarily":
               document.isVisible = false;
               return (message = `${document.option} is now hidden.`);
+
+            case "removeOptionPermanently":
+              await collection.deleteOne({ _id: document._id });
+              break;
 
             default:
               message = "Invalid action value.";

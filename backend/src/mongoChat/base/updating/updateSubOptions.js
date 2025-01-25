@@ -12,6 +12,24 @@ async function main(req, res) {
     const db = client.db(process.env.MONGO_DB);
     const collection = db.collection(process.env.MONGO_COLLECTION);
 
+    // Validate required fields in the request body
+    if (!rootOption || !targetOption || !action || !updateData) {
+      return res.status(400).json({
+        message: `Missing required fields. Ensure 'rootOption', 'targetOption', 'action' and 'updateData' are provided.`,
+      });
+    }
+
+    // Validate the action
+    const validActions = ["addSubOptions"];
+    if (!validActions.includes(action)) {
+      console.log(`Invalid action: ${action}`);
+      return res.status(400).json({
+        message: `Invalid action: '${action}'. Valid actions are ${validActions.join(
+          ", "
+        )}.`,
+      });
+    }
+
     async function modifyNestedOption(
       rootOption,
       targetOption,
@@ -26,28 +44,54 @@ async function main(req, res) {
         return (message = `Unable to find {RootOption: ${rootOption}} in {collection: ${process.env.MONGO_COLLECTION}}`);
       }
 
-      function isDuplicate(existingSubOptions, newSubOption) {
-        for (const existingOption of existingSubOptions) {
-          console.log("newsuboption.option= ", newSubOption.option);
-          console.log("existingSubOption.option= ", existingOption.option);
-          if (existingOption.option === newSubOption.option) {
-            return true;
-          }
-          if (
-            existingOption.sub_options &&
-            newSubOption.sub_options &&
-            newSubOption.sub_options.length > 0
-          ) {
-            // Check each nested sub-option for duplicates
-            for (const nestedNewSubOption of newSubOption.sub_options) {
-              if (isDuplicate(existingOption.sub_options, nestedNewSubOption)) {
-                return true;
+      // check for values that alreday exists
+      function recursion(newSubOptions) {
+        // console.log("recursion entered");
+        if (newSubOptions && newSubOptions.length > 0) {
+          message = "";
+          for (let i = 0; i < newSubOptions.length; i++) {
+            function isDuplicate(existingSubOptions, newSubOption) {
+              // console.log(object);
+
+              for (const existingOption of existingSubOptions) {
+                if (existingOption.option === newSubOption.option) {
+                  return (message = `The value '${newSubOption.option}' in newSubOptions already matches an existing option under the root '${rootOption}'. Kindly consider providing a different value.`);
+                  // return true;
+                } else if (
+                  existingOption.sub_options &&
+                  existingOption.sub_options.length > 0
+                ) {
+                  if (isDuplicate(existingOption.sub_options, newSubOption)) {
+                    return message;
+                  }
+                }
+              }
+              return false;
+            }
+            if (document && document.option === newSubOptions[i].option) {
+              return (message = `The value '${newSubOptions[i].option}' in newSubOptions already matches an existing option under the root '${rootOption}'. Kindly consider providing a different value.`);
+            }
+            const val = isDuplicate(document.sub_options, newSubOptions[i]);
+            if (val) {
+              console.log("Duplicate found");
+              return message;
+            } else if (
+              newSubOptions[i].sub_options &&
+              newSubOptions[i].sub_options.length > 0
+            ) {
+              if (recursion(newSubOptions[i].sub_options)) {
+                // console.log("recursion call");
+                return message;
               }
             }
           }
+          return false;
         }
-        return false;
       }
+      if (recursion(updateData.newSubOptions)) {
+        return message;
+      }
+
       // ModifySubOption updated logic for nested duplicates
       function modifySubOption(subOptions) {
         for (let i = 0; i < subOptions.length; i++) {
@@ -59,15 +103,6 @@ async function main(req, res) {
                   !Array.isArray(updateData.newSubOptions)
                 ) {
                   return "Invalid newSubOptions format.";
-                }
-                console.log("before value: ", subOptions[i].sub_options);
-                const duplicateExists = updateData.newSubOptions.some(
-                  (newSubOption) =>
-                    isDuplicate(subOptions[i].sub_options, newSubOption)
-                );
-                console.log("duplicateExists: ", duplicateExists);
-                if (duplicateExists) {
-                  return `One or more options in newSubOptions already exist in ${rootOption}.`;
                 }
 
                 subOptions[i].sub_options.push(...updateData.newSubOptions);
@@ -89,31 +124,14 @@ async function main(req, res) {
 
       // Function for modifying root
       async function modifyRootOption(document) {
-        console.log("function called");
+        // console.log("function called");
         if (!Array.isArray(document) && document.option === targetOption) {
-          console.log("function entered");
-          console.log(document);
+          // console.log("function entered");
+          // console.log(document);
           switch (action) {
             case "addSubOptions":
-              console.log("inside suboption");
-              // if (
-              //   Array.isArray(document.sub_options) &&
-              //   document.sub_options.length > 0
-              // ) {
-              //   console.log("duplicate");
-              //   const duplicateExists = updateData.newSubOptions.some(
-              //     (newItem) =>
-              //       document.sub_options.some(
-              //         (oldItem) => oldItem.option === newItem.option
-              //       )
-              //   );
+              // console.log("inside suboption");
 
-              //   if (duplicateExists) {
-              //     return (message = `Inside ${targetOption}, the new sub-options {${updateData.newSubOptions
-              //       .map((opt) => opt.option)
-              //       .join(", ")}} already exist.`);
-              //   }
-              // }
               document.sub_options.push(...updateData.newSubOptions);
               return (message = `RootOption ${targetOption} sub-options is been updated.`);
 

@@ -1,6 +1,4 @@
 async function main(req, res) {
-  const { documentId, departments } = req.body;
-
   const { mongoConnect } = require("../../mongoConnect");
   let client;
   try {
@@ -10,9 +8,6 @@ async function main(req, res) {
     }
     const db = client.db(process.env.MONGO_DB);
     const collection = db.collection(process.env.MONGO_COLLECTION);
-    if (!documentId) {
-      throw new Error("Please enter a document ID.");
-    }
 
     // to find single document with id
     // to read all data from the collection

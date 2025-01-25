@@ -1,5 +1,5 @@
 async function main(req, res) {
-  const { documentId, department_name } = req.body;
+  const { rootOption } = req.body;
   const { mongoConnect } = require("../../mongoConnect");
   let client;
 
@@ -12,15 +12,15 @@ async function main(req, res) {
     const collection = db.collection(process.env.MONGO_COLLECTION);
 
     // Check if documentId and department_name are provided
-    if (!documentId || !department_name) {
-      throw new Error("Please provide a document ID and department name.");
+    if (!rootOption) {
+      throw new Error("Please provide a rootOption.");
     }
 
     // Find the document by ID
     const findResult = await collection
       .aggregate([
         {
-          $match: { _id: documentId }, // Match document by its _id
+          $match: { option: rootOption }, // Match document by its _id
         },
         {
           $project: {
