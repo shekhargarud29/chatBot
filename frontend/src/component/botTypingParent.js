@@ -37,7 +37,7 @@ export const BotTypingParent = () => {
             }
             // const isoString = "2024-12-22T14:22:29.239Z";
             const formattedDate = formatDate(date);
-            console.log(formattedDate);
+            // console.log(formattedDate);
             return (
               <div key={index}>
                 {/* time */}

@@ -22,11 +22,6 @@ async function main(req, res) {
         {
           $match: { option: rootOption }, // Match document by its _id
         },
-        {
-          $project: {
-            departments: 1, // Include all departments in the result
-          },
-        },
       ])
       .toArray();
 
@@ -39,20 +34,9 @@ async function main(req, res) {
       });
     }
 
-    // Now filter by department_name
-    const filteredDepartments = findResult[0].departments.filter(
-      (department) => department.option === department_name
-    );
-
-    if (filteredDepartments.length === 0) {
-      return res.status(404).json({
-        message: "No department found with the provided department name.",
-      });
-    }
-
     res.status(200).json({
       message: "Department retrieved successfully",
-      findResult: filteredDepartments,
+      findResult: findResult,
     });
   } catch (error) {
     console.log("Error in main function:", error.message);

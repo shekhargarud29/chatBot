@@ -3,16 +3,23 @@ export const BotTypingChild = ({ option, answer, link }) => {
   // console.log(option);
   // console.log(answer);
   const main = document.getElementById("main");
-  if (main) {
-    main.scroll({ top: main.scrollHeight });
-  }
+  useEffect(() => {
+    if (main) {
+      main.scroll({ top: main.scrollHeight });
+    }
+  });
+  // auto scroll end
+
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
       setLoader(false);
-    }, 500);
+      if (main) {
+        main.scroll({ top: main.scrollHeight });
+      }
+    }, 600);
     return () => clearTimeout(timer);
-  }, [loader]);
+  });
   return (
     <>
       <div>
@@ -37,8 +44,13 @@ export const BotTypingChild = ({ option, answer, link }) => {
           {/* chatbot-chat */}
           <div className="col-8 ">
             {loader ? (
-              <div className=" py-1 mx-5" style={{ height: "40px" }}>
-                <span className="loader d-block"></span>
+              <div className=" py-1 mx-3" style={{ height: "40px" }}>
+                {/* <span className="loader d-block"></span> */}
+                <section className="dots-container">
+                  <div className="dot"></div>
+                  <div className="dot"></div>
+                  <div className="dot"></div>
+                </section>
               </div>
             ) : (
               <div className="d-flex py-1">

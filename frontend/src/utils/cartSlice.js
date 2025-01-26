@@ -6,6 +6,18 @@ const getHistory = () => {
   console.log(data);
   return data || null;
 };
+const afterDelete = {
+  chatObj: {
+    // Default welcome messages
+    0: {
+      date: new Date().toISOString(),
+      answer: "Hi I am Pragati, I can help you with the queries",
+    },
+    1: {
+      answer: "Please select",
+    },
+  },
+};
 
 const initialChatState = {
   chatObj: getHistory() !== null ? getHistory() : {},
@@ -13,6 +25,7 @@ const initialChatState = {
   // countDate: 1,
   link: null,
   dateObj: [],
+  resetTrigger: false,
 };
 // console.log(initialChatState.count);
 const cartSlice = createSlice({
@@ -24,6 +37,15 @@ const cartSlice = createSlice({
   // },
   initialState: initialChatState,
   reducers: {
+    deleteAllChats: (state) => {
+      state.chatObj = { ...afterDelete.chatObj }; // Reset chat object
+      state.count = 1; // Reset count
+      state.link = null; // Reset link
+      state.dateObj = []; // Reset date object (if applicable)
+      localStorage.removeItem("chatObj"); // Remove from localStorage
+      state.resetTrigger = !state.resetTrigger; // Toggle reset state
+    },
+
     addChat: (state, action) => {
       state.count++;
       // console.log(action.payload);
@@ -62,5 +84,5 @@ const cartSlice = createSlice({
   },
 });
 
-export const { addChat, addDate } = cartSlice?.actions;
+export const { deleteAllChats, addChat, addDate } = cartSlice?.actions;
 export default cartSlice.reducer;

@@ -1,5 +1,6 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addChat } from "../utils/cartSlice";
+
 import { useEffect, useState } from "react";
 
 export const BotOption = (chatBotData) => {
@@ -11,6 +12,8 @@ export const BotOption = (chatBotData) => {
   // const [date, setDate] = useState(new Date());
   // console.log(date);
   // let count = 1;
+
+  const resetTrigger = useSelector((state) => state.cart.resetTrigger); // Listen to reset state
   const [loader, setLoader] = useState(true);
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -21,7 +24,7 @@ export const BotOption = (chatBotData) => {
 
   useEffect(() => {
     setCurrentOptions(chatBotData?.chatBotData.departments || []);
-  }, [chatBotData]);
+  }, [resetTrigger]);
 
   const handleOptionClick = (item, option) => {
     if (option === "Home") {
@@ -39,6 +42,7 @@ export const BotOption = (chatBotData) => {
 
   const handleBackOption = () => {
     if (backOption.length > 0) {
+      // console.log(backOption);
       setCurrentOptions(backOption[backOption.length - 1]);
       setBackOption((prev) => prev.slice(0, -1));
       setLoader(true);

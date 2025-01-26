@@ -1,10 +1,14 @@
 import { BotTyping, BotTypingParent } from "./botTypingParent";
-import { UserTyping } from "./botTypingChild";
+// import { UserTyping } from "./botTypingChild";
+import { deleteAllChats } from "../utils/cartSlice";
 import { BotOption } from "./botOption";
 import { useEffect, useState } from "react";
 import { MongoDoc } from "../hooks/useMongoDoc";
-import { Shimmer } from "./shimmer";
+import { useDispatch } from "react-redux";
+// import { Shimmer } from "./shimmer";
+
 export const SideBar = () => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   // const [hasPlayed, setHasPlayed] = useState(false);
   const chatBotObject = MongoDoc();
@@ -87,16 +91,29 @@ export const SideBar = () => {
                   {/* top part */}
                   <header className="d-flex p-1 py-2 border-bottom justify-content-between">
                     {/* left */}
-                    <div className="d-flex">
-                      <div className="col-2 chatbot-logo px-2">
-                        <img
-                          style={{ width: "100%" }}
-                          alt="chatbot-image"
-                          src="https://s.cafebazaar.ir/images/icons/com.ai.photoeditor.fx-d46d301e-6921-4ace-8d11-18f7f524db71_512x512.png?x-img=v1/resize,h_256,w_256,lossless_false/optimize"
-                        ></img>
+                    <div className="d-flex justify-content-between">
+                      <div className="d-flex col-8">
+                        <div className="col-3 chatbot-logo px-2">
+                          <img
+                            style={{ width: "100%" }}
+                            alt="chatbot-image"
+                            src="https://s.cafebazaar.ir/images/icons/com.ai.photoeditor.fx-d46d301e-6921-4ace-8d11-18f7f524db71_512x512.png?x-img=v1/resize,h_256,w_256,lossless_false/optimize"
+                          ></img>
+                        </div>
+                        <div className="d-flex align-items-center p-1">
+                          <h6 className="fw-bold m-0">Ask Bot</h6>
+                        </div>
                       </div>
-                      <div className="d-flex align-items-center p-1">
-                        <h6 className="fw-bold m-0">Ask Bot</h6>
+                      <div className="col-3 ">
+                        <div
+                          className="btn btn-danger p-1"
+                          onClick={() => {
+                            dispatch(deleteAllChats());
+                          }}
+                        >
+                          <small className="m-0">Clear chat</small>
+                          {/* <BotOption chatBotData={chatBotObject?.chatBotData} /> */}
+                        </div>
                       </div>
                     </div>
                     {/* right */}

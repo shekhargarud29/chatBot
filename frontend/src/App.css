@@ -22,7 +22,7 @@ body {
   transform: translate(90deg);
 } */
 
-.loader,
+/* .loader,
 .loader:before,
 .loader:after {
   border-radius: 50%;
@@ -62,7 +62,7 @@ body {
   40% {
     box-shadow: 0 2.5em 0 0;
   }
-}
+} */
 
 /* .sidebarLoader {
   color: #000000;
@@ -135,5 +135,59 @@ body {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+
+/* From Uiverse.io by adamgiebl */
+.dots-container {
+  display: flex;
+  align-items: end;
+  justify-content: start;
+  height: 100%;
+  width: 100%;
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  margin-right: 8.5px;
+  border-radius: 10px;
+  background-color: #4682b4;
+  animation: pulse 1.7s infinite ease-in-out;
+}
+
+.dot:last-child {
+  margin-right: 0;
+}
+
+.dot:nth-child(1) {
+  animation-delay: -0.3s;
+}
+
+.dot:nth-child(2) {
+  animation-delay: -0.1s;
+}
+
+.dot:nth-child(3) {
+  animation-delay: 0.1s;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(0.8);
+    background-color: #b3d4fc;
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
+  }
+
+  50% {
+    transform: scale(1.2);
+    background-color: #6793fb;
+    box-shadow: 0 0 0 8px rgba(178, 212, 252, 0);
+  }
+
+  100% {
+    transform: scale(0.8);
+    background-color: #b3d4fc;
+    box-shadow: 0 0 0 0 rgba(178, 212, 252, 0.7);
   }
 }
