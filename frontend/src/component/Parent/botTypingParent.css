@@ -1,0 +1,36 @@
+.left-message {
+  position: relative;
+  background-color: #d3effd;
+  border-radius: 0px 10px 10px 2px; /* Left peak */
+  /* background-color: rgb(98, 232, 80);
+  border-radius: 0px 10px 10px 10px;
+  padding: 1%;
+  text-align: left;
+  margin-right: 50%; */
+}
+.left-message:after {
+  content: "";
+  position: absolute;
+  right: 100%;
+  top: 0px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #d3effd #d3effd transparent transparent;
+}
+.right-message {
+  position: relative;
+  background-color: rgb(234, 250, 175);
+  border-radius: 10px 0px 10px 10px;
+  padding: 1%;
+  text-align: right;
+  margin-left: 50%;
+}
+.right-message:after {
+  content: "";
+  position: absolute;
+  left: 100%;
+  top: 0px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: rgb(234, 250, 175) transparent transparent rgb(234, 250, 175);
+}

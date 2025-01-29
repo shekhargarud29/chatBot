@@ -6,12 +6,8 @@ import { useEffect, useState } from "react";
 export const BotOption = (chatBotData) => {
   const dispatch = useDispatch();
   const [currentOptions, setCurrentOptions] = useState();
-  const [homeOptions, setHomeOptions] = useState();
+
   const [backOption, setBackOption] = useState([]);
-  // console.log(chatBotData?.chatBotData.departments);
-  // const [date, setDate] = useState(new Date());
-  // console.log(date);
-  // let count = 1;
 
   const resetTrigger = useSelector((state) => state.cart.resetTrigger); // Listen to reset state
   const [loader, setLoader] = useState(true);
@@ -23,7 +19,11 @@ export const BotOption = (chatBotData) => {
   }, [loader]);
 
   useEffect(() => {
-    setCurrentOptions(chatBotData?.chatBotData.departments || []);
+    if (chatBotData?.chatBotData?.departments) {
+      setCurrentOptions(chatBotData?.chatBotData.departments || []);
+    } else {
+      setCurrentOptions([]);
+    }
   }, [resetTrigger]);
 
   const handleOptionClick = (item, option) => {

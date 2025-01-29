@@ -1,5 +1,5 @@
 // import { BotTyping } from "./botTyping";
-import { SideBar } from "./sidebar";
+import { SideBar } from "./sidebar/sidebar";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addDate } from "../utils/cartSlice";
