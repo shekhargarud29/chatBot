@@ -30,6 +30,7 @@ export const BotOption = (chatBotData) => {
     if (option === "Home") {
       setCurrentOptions(chatBotData?.chatBotData.departments);
       setBackOption([]);
+
       dispatch(addChat(item));
       setLoader(true);
     } else {

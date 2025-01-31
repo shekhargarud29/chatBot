@@ -3,7 +3,7 @@ import { useEffect } from "react";
 
 const getHistory = () => {
   const data = JSON.parse(localStorage.getItem("chatObj"));
-  console.log(data);
+  // console.log(data);
   return data || null;
 };
 const afterDelete = {
@@ -48,6 +48,7 @@ const cartSlice = createSlice({
 
     addChat: (state, action) => {
       state.count++;
+      const time = new Date().toISOString();
       // console.log(action.payload);
       const { option, answer } = action.payload;
       state.link = null;
@@ -56,6 +57,7 @@ const cartSlice = createSlice({
       }
       //  ? (state.link = action.payload?.link) : null;
       state.chatObj[state.count] = {
+        time: time,
         option: option,
         answer: answer,
         link: state.link,
@@ -69,7 +71,7 @@ const cartSlice = createSlice({
 
       const { date } = action.payload;
 
-      console.log(date);
+      // console.log(date);
       // console.log(state.count);
       state.chatObj[state.count] = {
         date,

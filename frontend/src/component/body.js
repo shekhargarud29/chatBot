@@ -8,7 +8,7 @@ export const Body = () => {
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
   useEffect(() => {
-    console.log(date);
+    // console.log(date);
 
     dispatch(addDate({ date: date.toISOString() }));
   });

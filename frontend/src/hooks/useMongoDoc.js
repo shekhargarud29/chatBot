@@ -73,7 +73,7 @@ export const MongoDoc = () => {
     loading: isLoading,
     error: error,
   };
-  console.log(chatBotObject);
+  // console.log(chatBotObject);
 
   return chatBotObject;
 };

@@ -12,7 +12,7 @@ export const SideBar = () => {
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const chatBotObject = MongoDoc();
-  console.log(chatBotObject);
+  // console.log(chatBotObject);
 
   const iframeRef = useRef(null);
 

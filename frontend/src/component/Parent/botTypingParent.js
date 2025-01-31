@@ -37,10 +37,11 @@ export const BotTypingParent = () => {
   }
 
   let displayedDates = new Set(); // Track displayed dates
-
+  // console.log("displayedDates", displayedDates);
   useEffect(() => {
     const storedDate = localStorage.getItem("lastChatDate");
-    console.log(storedDate === formatDate(new Date().toISOString()));
+    // console.log(storedDate === formatDate(new Date().toISOString()));
+    // console.log(formatTime(new Date().toISOString()));
     if (storedDate === formatDate(new Date().toISOString())) {
       setShowInitialMessage(true);
     }
@@ -50,20 +51,22 @@ export const BotTypingParent = () => {
     <>
       {chatObj !== null && chatObj !== undefined
         ? Object.values(chatObj).map((value, index) => {
+            let formattedTime;
             if (value?.date) {
               const { date } = value;
+              // console.log(date);
               const formattedDate = formatDate(date);
-              const formattedTime = formatTime(date);
+              formattedTime = formatTime(date);
 
               // Show date only if it hasn't been displayed before
               const showDate = !displayedDates.has(formattedDate);
+              // console.log("showDate", showDate);
               displayedDates.add(formattedDate);
-
+              // console.log("newdisplayedDates", displayedDates);
               // Store the last chat date in localStorage
               if (showDate) {
                 localStorage.setItem("lastChatDate", formattedDate);
               }
-
               return (
                 <div key={index}>
                   {/* Show date only if it's the first occurrence */}
@@ -181,10 +184,17 @@ export const BotTypingParent = () => {
                 </div>
               );
             } else if (value?.answer && value?.option) {
-              const { option, answer, link } = value;
+              const { option, answer, link, time } = value;
+              console.log(time);
+              const formattedTime = formatTime(time);
               return (
                 <div key={index}>
-                  <BotTypingChild option={option} answer={answer} link={link} />
+                  <BotTypingChild
+                    option={option}
+                    answer={answer}
+                    link={link}
+                    formattedTime={formattedTime}
+                  />
                 </div>
               );
             }
